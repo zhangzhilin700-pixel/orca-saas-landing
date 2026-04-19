@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>免費試用 · orcaSaaS</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a2f1f 0%, #051a0e 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 40px;
+            color: white;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: rgba(0,0,0,0.7);
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 30px;
+            border: none;
+        }
+        button {
+            background: #D4AF37;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-back {
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🐋 免費試用 orcaSaaS</h1>
+    <p>填寫資料，我們將盡快與您聯絡</p>
+    <form action="https://formspree.io/f/你的表單ID" method="POST">
+        <input type="text" name="company" placeholder="公司名稱" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="電話">
+        <button type="submit">📨 送出申請</button>
+    </form>
+    <button class="btn-back" onclick="location.href='index.html'">🏠 回首頁</button>
+</div>
+</body>
+</html>
