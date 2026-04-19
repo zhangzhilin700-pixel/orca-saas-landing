@@ -10,6 +10,20 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             color: white;
         }
+        .lang-bar {
+            text-align: right;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+        }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            padding: 6px 12px;
+            border-radius: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
         .hero {
             text-align: center;
             padding: 80px 20px;
@@ -37,13 +51,43 @@
     </style>
 </head>
 <body>
+<div class="lang-bar">
+    <button class="lang-btn" onclick="switchLang('zh')">中文</button>
+    <button class="lang-btn" onclick="switchLang('en')">English</button>
+    <button class="lang-btn" onclick="switchLang('de')">Deutsch</button>
+</div>
 <div class="hero">
     <h1>🐋 orcaSaaS</h1>
-    <p>跨國 AIoT 平台 · 多租戶 · 多語系 · 即時警報</p>
-    <a href="trial.html" class="btn">免費試用</a>
+    <p id="slogan">跨國 AIoT 平台 · 多租戶 · 多語系 · 即時警報</p>
+    <a id="trialBtn" href="trial.html" class="btn">免費試用</a>
 </div>
 <div class="footer">
-    © 天啟商 · 創辦人 林長志
+    <p id="footerText">© 天啟商 · 創辦人 林長志</p>
 </div>
+
+<script>
+function switchLang(lang) {
+    const texts = {
+        zh: {
+            slogan: '跨國 AIoT 平台 · 多租戶 · 多語系 · 即時警報',
+            btn: '免費試用',
+            footer: '© 天啟商 · 創辦人 林長志'
+        },
+        en: {
+            slogan: 'Global AIoT Platform · Multi-tenant · Multilingual · Real-time Alerts',
+            btn: 'Free Trial',
+            footer: '© TianQi Shang · Founder Lin Changzhi'
+        },
+        de: {
+            slogan: 'Globale AIoT-Plattform · Multi-Mandant · Mehrsprachig · Echtzeit-Warnungen',
+            btn: 'Kostenlose Testversion',
+            footer: '© TianQi Shang · Gründer Lin Changzhi'
+        }
+    };
+    document.getElementById('slogan').innerText = texts[lang].slogan;
+    document.getElementById('trialBtn').innerText = texts[lang].btn;
+    document.getElementById('footerText').innerHTML = texts[lang].footer;
+}
+</script>
 </body>
 </html>
