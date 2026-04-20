@@ -3,6 +3,7 @@
 <head>
     <title>orcaSaaS · 跨國 AIoT 平台</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -12,58 +13,16 @@
             height: 100vh;
             position: relative;
         }
-        .whale {
-            position: absolute;
-            font-size: 5rem;
-            bottom: 0;
-            right: 0;
-            transform: translate(0, 0);
-            transition: all 3s ease-in-out;
-            z-index: 10;
-            cursor: pointer;
-        }
-        .bio-whale {
-            position: absolute;
-            font-size: 5rem;
-            opacity: 0;
-            transition: 1s;
-            z-index: 10;
-        }
-        .logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            opacity: 0;
-            transition: 1s;
-            z-index: 20;
-        }
-        .logo h1 {
-            font-size: 3rem;
-            color: #FFD700;
-            text-shadow: 2px 2px 0 #8B0000;
-        }
-        .logo p {
-            color: #D4AF37;
-            font-size: 1rem;
-        }
+        .whale { position: absolute; font-size: 5rem; bottom: 0; right: 0; transition: all 3s ease-in-out; z-index: 10; cursor: pointer; }
+        .bio-whale { position: absolute; font-size: 5rem; opacity: 0; transition: 1s; z-index: 10; }
+        .logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; opacity: 0; transition: 1s; z-index: 20; }
+        .logo h1 { font-size: 3rem; color: #FFD700; text-shadow: 2px 2px 0 #8B0000; }
+        .logo p { color: #D4AF37; font-size: 1rem; }
         .auth-container {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 450px;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            padding: 25px;
-            text-align: center;
-            border: 1px solid #D4AF37;
-            opacity: 0;
-            transition: 1s;
-            z-index: 20;
+            position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 450px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            border-radius: 40px; padding: 25px; text-align: center; border: 1px solid #D4AF37;
+            opacity: 0; transition: 1s; z-index: 20;
         }
         .lang-bar { text-align: right; margin-bottom: 15px; }
         select { background: #D4AF37; border-radius: 20px; padding: 5px 10px; border: none; }
@@ -74,14 +33,7 @@
         .tab.active { background: #D4AF37; color: #0a2f1f; }
         .form-pane { display: none; }
         .form-pane.active { display: block; }
-        .footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            color: #D4AF37;
-            font-size: 0.7rem;
-        }
+        .footer { position: absolute; bottom: 10px; width: 100%; text-align: center; color: #D4AF37; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -94,12 +46,8 @@
     <div class="auth-container" id="authContainer">
         <div class="lang-bar">
             <select id="langSelect">
-                <option value="zh">中文</option>
-                <option value="en">English</option>
-                <option value="de">Deutsch</option>
-                <option value="ja">日本語</option>
-                <option value="fr">Français</option>
-                <option value="ru">Русский</option>
+                <option value="zh">中文</option><option value="en">English</option><option value="de">Deutsch</option>
+                <option value="ja">日本語</option><option value="fr">Français</option><option value="ru">Русский</option>
             </select>
         </div>
         <div class="tabs">
@@ -121,37 +69,64 @@
     <div class="footer">⚜️ orcaSaaS · 跨國 AIoT 平台 ⚜️</div>
 
     <script>
+        // 動畫
         const whale = document.getElementById('whale');
         const bioWhale = document.getElementById('bioWhale');
         const logo = document.getElementById('logo');
         const authContainer = document.getElementById('authContainer');
-
-        // 動畫序列
         whale.style.transition = 'all 3s ease-in-out';
-        
-        setTimeout(() => {
-            // 游到左中
-            whale.style.transform = 'translate(-300px, -200px)';
-        }, 500);
-        
-        setTimeout(() => {
-            // 往右上游
-            whale.style.transform = 'translate(100px, -400px)';
-        }, 2000);
-        
-        setTimeout(() => {
-            // 變身生化人
-            whale.style.opacity = '0';
-            bioWhale.style.opacity = '1';
-            bioWhale.style.transform = 'translate(150px, -450px)';
-        }, 3500);
-        
-        setTimeout(() => {
-            // 消失，顯示 Logo
-            bioWhale.style.opacity = '0';
-            logo.style.opacity = '1';
-            authContainer.style.opacity = '1';
-        }, 4800);
+        setTimeout(() => whale.style.transform = 'translate(-300px, -200px)', 500);
+        setTimeout(() => whale.style.transform = 'translate(100px, -400px)', 2000);
+        setTimeout(() => { whale.style.opacity = '0'; bioWhale.style.opacity = '1'; bioWhale.style.transform = 'translate(150px, -450px)'; }, 3500);
+        setTimeout(() => { bioWhale.style.opacity = '0'; logo.style.opacity = '1'; authContainer.style.opacity = '1'; }, 4800);
+
+        // 註冊 API
+        document.getElementById('doRegister').addEventListener('click', async () => {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const res = await fetch('https://orca-saas-api.onrender.com/api/register', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+            const data = await res.json();
+            alert(data.message || data.error);
+        });
+
+        // 登入 API
+        document.getElementById('doLogin').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const res = await fetch('https://orca-saas-api.onrender.com/api/login', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                alert('登入成功');
+                // 未來可跳轉儀表板
+            } else {
+                alert(data.error);
+            }
+        });
+
+        // 多語言（簡單示範）
+        const langMap = {
+            zh: { login: "🔐 登入", register: "📝 註冊", email: "Email", password: "密碼", company: "公司名稱" },
+            en: { login: "🔐 Login", register: "📝 Register", email: "Email", password: "Password", company: "Company Name" }
+        };
+        document.getElementById('langSelect').addEventListener('change', (e) => {
+            const lang = e.target.value;
+            if (!langMap[lang]) return;
+            document.querySelector('[data-tab="login"]').innerText = langMap[lang].login;
+            document.querySelector('[data-tab="register"]').innerText = langMap[lang].register;
+            document.getElementById('loginEmail').placeholder = langMap[lang].email;
+            document.getElementById('loginPassword').placeholder = langMap[lang].password;
+            document.getElementById('regName').placeholder = langMap[lang].company;
+            document.getElementById('regEmail').placeholder = langMap[lang].email;
+            document.getElementById('regPassword').placeholder = langMap[lang].password;
+        });
     </script>
 </body>
 </html>
