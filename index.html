@@ -1,11 +1,214 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>orcaSaaS · 跨國 AIoT</title>
+    <title>orcaSaaS · 跨國 AIoT 平台</title>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a2f1f 0%, #051a0e 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .stage {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .whale {
+            font-size: 6rem;
+            position: absolute;
+            transition: all 0.8s ease;
+            cursor: pointer;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        .swim {
+            animation: swim 3s ease-in-out infinite;
+        }
+        @keyframes swim {
+            0% { transform: translateX(-200px); }
+            50% { transform: translateX(200px); }
+            100% { transform: translateX(-200px); }
+        }
+        .jump {
+            animation: jumpUp 0.8s ease-out forwards;
+        }
+        @keyframes jumpUp {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+        }
+        .uncle {
+            font-size: 6rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: 0.5s;
+        }
+        .uncle.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .auth-container {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 450px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #D4AF37;
+            opacity: 0;
+            transition: 1s;
+        }
+        .auth-container.show {
+            opacity: 1;
+        }
+        .lang-bar {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        select {
+            background: #D4AF37;
+            border-radius: 20px;
+            padding: 5px 10px;
+            border: none;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 30px;
+            border: none;
+        }
+        button {
+            background: #D4AF37;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255,215,0,0.2);
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: #D4AF37;
+            color: #0a2f1f;
+        }
+        .form-pane {
+            display: none;
+        }
+        .form-pane.active {
+            display: block;
+        }
+        .footer {
+            position: absolute;
+            bottom: 15px;
+            text-align: center;
+            width: 100%;
+            color: #D4AF37;
+            font-size: 0.7rem;
+        }
+    </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+<div class="stage">
+    <div class="whale swim" id="whale">🐋</div>
+    <div class="uncle" id="uncle">🐋⚜️</div>
+</div>
+<div class="auth-container" id="authContainer">
+    <div class="lang-bar">
+        <select id="langSelect">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+            <option value="fr">Français</option>
+            <option value="ru">Русский</option>
+        </select>
+    </div>
+    <div class="tabs">
+        <div class="tab active" data-tab="login">🔐 登入</div>
+        <div class="tab" data-tab="register">📝 註冊</div>
+    </div>
+    <div id="loginPane" class="form-pane active">
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="密碼">
+        <button id="doLogin">登入</button>
+    </div>
+    <div id="registerPane" class="form-pane">
+        <input type="text" id="regName" placeholder="公司名稱">
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="password" id="regPassword" placeholder="密碼">
+        <button id="doRegister">註冊</button>
+    </div>
+</div>
+<div class="footer">
+    ⚜️ orcaSaaS · 跨國 AIoT 平台 ⚜️
+</div>
+
+<script>
+    // 動畫
+    const whale = document.getElementById('whale');
+    const uncle = document.getElementById('uncle');
+    const authContainer = document.getElementById('authContainer');
+
+    whale.addEventListener('click', () => {
+        whale.classList.remove('swim');
+        whale.classList.add('jump');
+        setTimeout(() => {
+            whale.style.display = 'none';
+            uncle.classList.add('show');
+            setTimeout(() => {
+                authContainer.classList.add('show');
+            }, 500);
+        }, 800);
+    });
+
+    // 頁籤切換
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('loginPane').classList.toggle('active', tab.dataset.tab === 'login');
+            document.getElementById('registerPane').classList.toggle('active', tab.dataset.tab === 'register');
+        });
+    });
+
+    // 多語言（簡單版）
+    const texts = {
+        zh: { login: "🔐 登入", register: "📝 註冊", email: "Email", password: "密碼", company: "公司名稱" },
+        en: { login: "🔐 Login", register: "📝 Register", email: "Email", password: "Password", company: "Company Name" }
+        // 其他語言可擴充
+    };
+    document.getElementById('langSelect').addEventListener('change', (e) => {
+        const lang = e.target.value;
+        if (!texts[lang]) return;
+        document.querySelector('[data-tab="login"]').innerText = texts[lang].login;
+        document.querySelector('[data-tab="register"]').innerText = texts[lang].register;
+        document.getElementById('loginEmail').placeholder = texts[lang].email;
+        document.getElementById('loginPassword').placeholder = texts[lang].password;
+        document.getElementById('regName').placeholder = texts[lang].company;
+        document.getElementById('regEmail').placeholder = texts[lang].email;
+        document.getElementById('regPassword').placeholder = texts[lang].password;
+    });
+</script>
 </body>
 </html>
